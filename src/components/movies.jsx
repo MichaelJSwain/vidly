@@ -32,6 +32,14 @@ class Movies extends Component {
         this.setState({ movies });
     };
 
+    handleLike = movie => {
+        const movies = [...this.state.movies];
+        const index = movies.indexOf(movie);
+        movies[index] = { ...movies[index] };
+        movies[index].liked = !movies[index].liked;
+        this.setState({ movies });
+    }
+
     handlePageChange = page => {
         this.setState({ currentPage: page });
     }
@@ -51,14 +59,6 @@ class Movies extends Component {
             ? allMovies.filter(m => m.genre._id === selectedGenre._id)
             : allMovies;
 
-        // let filteredMovies = [];
-        // if (currentGenre !== 'All genres') {
-        //     filteredMovies = allMovies.filter(movie => movie.genre.name === currentGenre);
-        // } else {
-        //     filteredMovies = allMovies;
-        // }
-        // count = filteredMovies.length;
-
         const movies = paginate(filtered, currentPage, pageSize);
 
         return (
@@ -75,6 +75,7 @@ class Movies extends Component {
                     <MoviesTable
                         movies={movies}
                         onDelete={this.handleDelete}
+                        onLike={this.handleLike}
                     />
                     <Pagination
                         itemsCount={filtered.length}
