@@ -14,7 +14,7 @@ const Table = props => {
             />
             <TableBody
                 data={data}
-                columns={this.columns}
+                columns={columns}
             />
         </table>
     );
